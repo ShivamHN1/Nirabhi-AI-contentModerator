@@ -74,7 +74,8 @@ const ContentAnalyzer: React.FC<ContentAnalyzerProps> = ({
     setError(null);
 
     try {
-      const response = await axios.post('/analyze', {
+      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+      const response = await axios.post(`${apiUrl}/analyze`, {
         text: text.trim(),
         context: 'user_interface',
         user_preferences: null
