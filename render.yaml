@@ -13,10 +13,11 @@ services:
       - key: DEBUG
         value: false
 
-  - type: staticSite
+  - type: web
     name: nirabhi-frontend
+    env: node
     buildCommand: "cd frontend && npm install --legacy-peer-deps && npm run build"
-    staticPublishPath: frontend/build
+    startCommand: "cd frontend && npx serve -s build -p 10000"
     plan: free
     envVars:
       - key: REACT_APP_API_URL
