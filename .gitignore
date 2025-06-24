@@ -1,0 +1,41 @@
+# Dependencies
+node_modules/
+backend/venv/
+backend/__pycache__/
+*.pyc
+*.pyo
+
+# Environment variables
+.env
+.env.local
+.env.production
+
+# Build outputs
+frontend/build/
+frontend/dist/
+*.log
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# AI Model cache
+backend/model_cache/
+
+# Logs
+*.log
+backend/nirabhi.log*
+
+# Database
+*.db
+*.sqlite
+
+# Temporary files
+tmp/
+temp/
