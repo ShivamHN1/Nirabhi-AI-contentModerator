@@ -176,7 +176,7 @@ class UserPreferences(BaseModel):
     language: str = Field(
         "en",
         description="Preferred language for responses",
-        regex="^[a-z]{2}$"
+        pattern="^[a-z]{2}$"
     )
 
 class ToxicityReport(BaseModel):

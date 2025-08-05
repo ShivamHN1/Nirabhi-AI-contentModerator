@@ -1,0 +1,23 @@
+# Minimal requirements for Nirabhi AI Content Moderator
+# Based on actual code analysis - only what's actually used
+
+# Core Web Framework
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+
+# Data Validation
+pydantic==2.5.0
+pydantic-settings==2.1.0
+
+# Logging and Console Output
+loguru==0.7.2
+rich==13.7.0
+
+# Environment Variables
+python-dotenv==1.0.0
+
+# Basic Sentiment Analysis (lightweight)
+vaderSentiment==3.3.2
+
+# HTTP requests (used in some utility functions)
+httpx==0.25.2

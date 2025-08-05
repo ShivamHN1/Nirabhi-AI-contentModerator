@@ -15,9 +15,16 @@ from typing import Dict, List, Optional, Any
 from datetime import datetime
 
 # AI and ML libraries
-from transformers import pipeline, AutoTokenizer, AutoModelForSequenceClassification
+try:
+    from transformers import pipeline, AutoTokenizer, AutoModelForSequenceClassification
+    import torch
+    TRANSFORMERS_AVAILABLE = True
+except ImportError:
+    print("⚠️ Advanced AI models not available (transformers/torch not installed)")
+    print("🔄 Will use lightweight rule-based analysis instead")
+    TRANSFORMERS_AVAILABLE = False
+
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-import torch
 
 # Our custom models
 from .schemas import (
@@ -61,20 +68,25 @@ class ContentAnalyzer:
         try:
             print("🧠 Loading AI models for content analysis...")
             
-            # Load a lightweight but effective toxicity detection model
-            # Using DistilBERT for speed while maintaining accuracy
-            self.toxicity_classifier = pipeline(
-                "text-classification",
-                model="unitary/toxic-bert",
-                device=0 if torch.cuda.is_available() else -1,
-                return_all_scores=True
-            )
+            if TRANSFORMERS_AVAILABLE:
+                # Load a lightweight but effective toxicity detection model
+                # Using DistilBERT for speed while maintaining accuracy
+                self.toxicity_classifier = pipeline(
+                    "text-classification",
+                    model="unitary/toxic-bert",
+                    device=0 if torch.cuda.is_available() else -1,
+                    return_all_scores=True
+                )
+                print("✅ Advanced AI models loaded successfully!")
+            else:
+                print("🔄 Advanced models not available, using rule-based analysis")
+                self.toxicity_classifier = None
             
-            # Initialize VADER sentiment analyzer (great for social media text!)
+            # Initialize VADER sentiment analyzer (lightweight and works great!)
             self.sentiment_analyzer = SentimentIntensityAnalyzer()
             
             self.is_initialized = True
-            print("✅ AI models loaded successfully!")
+            print("✅ Content analyzer ready!")
             
         except Exception as e:
             print(f"❌ Error loading AI models: {str(e)}")
